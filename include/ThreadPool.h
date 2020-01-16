@@ -2,22 +2,24 @@
 
 #include <functional>
 #include <future>
-#include <mutex>
-#include <queue>
 #include <thread>
 #include <utility>
 #include <vector>
 
 #include "SafeQueue.h"
 
-class ThreadPool {
+
+class ThreadPool 
+{
 private:
-  class ThreadWorker {
+
+  class ThreadWorker 
+  {
   private:
     int m_id;
-    ThreadPool * m_pool;
+    ThreadPool *m_pool;
   public:
-    ThreadWorker(ThreadPool * pool, const int id)
+    ThreadWorker(ThreadPool *pool, const int id)
       : m_pool(pool), m_id(id) {
     }
 
@@ -44,6 +46,7 @@ private:
   std::vector<std::thread> m_threads;
   std::mutex m_conditional_mutex;
   std::condition_variable m_conditional_lock;
+
 public:
   ThreadPool(const int n_threads)
     : m_threads(std::vector<std::thread>(n_threads)), m_shutdown(false) {
